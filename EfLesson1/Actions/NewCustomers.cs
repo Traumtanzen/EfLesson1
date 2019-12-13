@@ -44,7 +44,7 @@ namespace EfLesson1.Actions
                         {
                             var orderIt = selectedShop.Stock.Where(i => i.Id == selectedGoods).FirstOrDefault();
                             order.Items.Add(orderIt);
-                            order.OrderDate = DateTime.Today(); //Ёбанная ёбань!
+                            order.OrderDate = DateTime.Today;
                             order.Shop = selectedShop;
                             context.SaveChanges();
                             break;
