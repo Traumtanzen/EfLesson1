@@ -6,7 +6,7 @@ namespace EfLesson1.Models
 {
     public class ShopItem : BaseEntity
     {
-        public int Price { get; set; }
+        public double Price { get; set; }
         public int Size { get; set; }
         public string Brand { get; set; }
     }

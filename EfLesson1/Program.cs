@@ -1,4 +1,5 @@
-﻿using EfLesson1.Models;
+﻿using EfLesson1.Actions;
+using EfLesson1.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Globalization;
@@ -11,40 +12,25 @@ namespace EfLesson1
     {
         static async Task Main(string[] args)
         {
-            await ManageStock();
-
-        }
-
-        static async Task ManageStock()
-        {
+            Console.WriteLine("Welcome to ShoeShop. Are you a customer or a manager?\n1 - Customer\n2 - Manager");
             while (true)
             {
-                Console.WriteLine("Do you want to add item?(y/n)");
-                string answer = Console.ReadLine();
-                if (answer != "y") break;
-                Console.WriteLine("Select a shop to add item");
-                using (var context = new ShopContext())
+                Int32.TryParse(Console.ReadLine(), out int startChoice);
+                if (startChoice == 1)
                 {
-                    foreach (var shop in context.Shops)
-                    {
-                        Console.WriteLine($"{shop.Id} - {shop.ShopName}");
-                    }
-                    var selectedShop = await context.Shops.Include(x=>x.Stock).FirstOrDefaultAsync(x=>x.Id == int.Parse(Console.ReadLine()));
-
-                    var item = new ShopItem();
-                    Console.WriteLine("enter brand");
-                    item.Brand = Console.ReadLine();
-                    Console.WriteLine("enter price");
-                    item.Price = int.Parse(Console.ReadLine());
-                    Console.WriteLine("enter size");
-                    item.Size = int.Parse(Console.ReadLine());
-
-                    selectedShop.Stock.Add(item);
-                    context.SaveChanges();
+                    Managing managing = new Managing();
+                    await managing.ManagerPassword();
                 }
-
-
+                else if (startChoice == 2)
+                {
+                    //await Customing();
+                }
+                else
+                {
+                    Console.WriteLine("Invalid selection. Try again");
+                }
             }
         }
+
     }
 }
